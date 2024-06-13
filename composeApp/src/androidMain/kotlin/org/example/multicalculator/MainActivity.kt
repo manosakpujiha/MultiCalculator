@@ -54,7 +54,13 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun CalcEqualsButton() {
+    fun CalcEqualsButton(display: MutableState<String>) {
+        Button(
+            onClick = { display.value = "0" },
+            modifier = Modifier.padding(4.dp)
+        ) {
+            Text(text = "=")
+        }
 
     }
 
