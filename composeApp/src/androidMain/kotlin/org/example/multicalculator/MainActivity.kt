@@ -53,6 +53,10 @@ class MainActivity : ComponentActivity() {
 
     }
 
+    @Composable
+    fun CalcEqualsButton() {
+
+    }
 
 
 
