@@ -30,17 +30,45 @@ class MainActivity : ComponentActivity() {
     }
     @Composable
     fun CalcView() {
+        val displayText = remember { mutableStateOf("0") }
+        Column {
+            CalcDisplay(displayText)
+            CalcRow(displayText, startNum = 1, numButtons = 3)
+            CalcRow(displayText, startNum = 4, numButtons = 3)
+            CalcRow(displayText, startNum = 7, numButtons = 3)
+            Row {
+                CalcNumericButton(0, displayText)
+                CalcEqualsButton(display = displayText)
+            }
 
+            Column{
+                CalcOperationButton(operation = "+", display = displayText)
+                CalcOperationButton(operation = "-", display = displayText)
+                CalcOperationButton(operation = "*", display = displayText)
+                CalcOperationButton(operation = "/", display = displayText)
+            }
+        }
     }
 
     @Composable
-    fun CalcRow() {
-
+    fun CalcRow(display: MutableState<String>, startNum: Int, numButtons: Int) {
+        val endNum = startNum + numButtons
+        Row(modifier = Modifier.padding(0.dp)) {
+            for (i in startNum until endNum) {
+                CalcNumericButton(i, display)
+            }
+        }
     }
 
     @Composable
-    fun CalcDisplay() {
-
+    fun CalcDisplay(display: MutableState<String>) {
+        Text(
+            text = display.value,
+            modifier = Modifier
+                .height(50.dp)
+                .padding(5.dp)
+                .fillMaxWidth()
+        )
     }
 
     @Composable
@@ -51,7 +79,6 @@ class MainActivity : ComponentActivity() {
         ) {
             Text(text = number.toString())
         }
-
     }
 
     @Composable
@@ -62,7 +89,6 @@ class MainActivity : ComponentActivity() {
         ) {
             Text(text = operation)
         }
-
     }
 
     @Composable
@@ -73,10 +99,7 @@ class MainActivity : ComponentActivity() {
         ) {
             Text(text = "=")
         }
-
     }
-
-
 
 
 }
