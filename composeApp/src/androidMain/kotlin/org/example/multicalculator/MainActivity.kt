@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun CalcOperationButton() {
+    fun CalcOperationButton(operation: String, display: MutableState<String>) {
 
     }
 
