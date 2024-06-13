@@ -43,6 +43,15 @@ class MainActivity : ComponentActivity() {
 
     }
 
+    @Composable
+    fun CalcNumericButton() {
+
+    }
+
+    @Composable
+    fun CalcOperationButton() {
+
+    }
 
 
 
