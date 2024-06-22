@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 //import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +17,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -36,6 +38,44 @@ class MainActivity : ComponentActivity() {
     fun CalcView() {
         Column(modifier = Modifier.fillMaxSize().background(Color.Cyan)) {
             val displayText = remember { mutableStateOf("0") }
+            val leftNumber = rememberSaveable { mutableIntStateOf(0) }
+            val rightNumber = rememberSaveable { mutableIntStateOf(0) }
+            val operation = rememberSaveable { mutableStateOf("") }
+            val complete = rememberSaveable { mutableStateOf(false) }
+
+            if (complete.value && operation.value.isNotEmpty()) {
+                var answer = 0
+
+                // When statement to perform the operation
+                when (operation.value) {
+                    "+" -> answer = leftNumber.value + rightNumber.value
+                    "-" -> answer = leftNumber.value - rightNumber.value
+                    "*" -> answer = leftNumber.value * rightNumber.value
+                    "/" -> answer = if (rightNumber.value != 0) leftNumber.value / rightNumber.value else 0 // Handle division by zero
+                }
+
+                // Assign the answer to displayText
+                displayText.value = answer.toString()
+
+            } else if (operation.value.isNotEmpty() && !complete.value) {
+                displayText.value = rightNumber.value.toString()
+            } else {
+                // Set displayText to leftNumber value
+                displayText.value = leftNumber.value.toString()
+                // Empty functions
+            }
+            fun numberPress(number: Int) {
+                // Logic for handling number press
+            }
+
+            fun operationPress(op: String) {
+                // Logic for handling operation press
+            }
+
+            fun equalsPress() {
+                // Logic for handling equals press
+            }
+
             Column(modifier = Modifier.fillMaxSize().padding(16.dp).background(Color.LightGray)) {
                 Row(modifier = Modifier.fillMaxWidth().background(Color.Yellow).padding(4.dp)) {
                     CalcDisplay(displayText)
