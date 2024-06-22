@@ -44,7 +44,9 @@ class MainActivity : ComponentActivity() {
                     "+" -> answer = leftNumber.intValue + rightNumber.intValue
                     "-" -> answer = leftNumber.intValue - rightNumber.intValue
                     "*" -> answer = leftNumber.intValue * rightNumber.intValue
-                    "/" -> answer = if (rightNumber.intValue != 0) leftNumber.intValue / rightNumber.intValue else 0 // Handle division by zero
+                    "/" -> answer = if (rightNumber.intValue != 0) {
+                        leftNumber.intValue / rightNumber.intValue
+                    } else 0
                 }
                 displayText.value = answer.toString()
             } else if (operation.value.isNotEmpty() && !complete.value) {
@@ -52,6 +54,7 @@ class MainActivity : ComponentActivity() {
             } else {
                 displayText.value = leftNumber.intValue.toString()
             }
+
             fun numberPress( btnNum: Int) {
                 if (complete.value) {
                     leftNumber.intValue = 0
